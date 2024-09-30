@@ -67,16 +67,20 @@ class FriendBirthday {
 
     public void checkBirthday(LocalDate currentDate) {
         LocalDate nextBirthday = birthday.withYear(currentDate.getYear());
-        if (nextBirthday.isBefore(currentDate) || nextBirthday.isEqual(currentDate)) {
+        
+        // If today's birthday is today, print the birthday message!
+        if(nextBirthday.isEqual(currentDate)) {
+            System.out.println("Happy birthday to: " + friendName + "! Go celebrate!");
+            return; // Exit the method since the birthday is today
+        }
+        // If today's birthday has passed, move to next year.
+        if (nextBirthday.isBefore(currentDate)){
             nextBirthday = nextBirthday.plusYears(1); // Move to next year if birthday has passed
         }
         
         long daysUntilBirthday = ChronoUnit.DAYS.between(currentDate, nextBirthday);
         
-        if (daysUntilBirthday == 0) {
-            System.out.println("Happy birthday to: " + friendName + "! Go celebrate!");
-        } else {
-            System.out.println(friendName + "'s birthday is in " + daysUntilBirthday + " days on " + nextBirthday + ". Don't forget to send a thoughtful gift!");
-        }
+        System.out.println(friendName + "'s birthday is in " + daysUntilBirthday + " days on " + nextBirthday + ". Don't forget to send a thoughtful gift!");
+        
     }
 }
